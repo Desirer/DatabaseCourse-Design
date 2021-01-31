@@ -1,4 +1,4 @@
-<?php /*a:1:{s:32:"../view/teacher/problem-add.html";i:1609743913;}*/ ?>
+<?php /*a:1:{s:32:"../view/teacher/problem-add.html";i:1611819773;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 <head>
@@ -17,7 +17,7 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form" action="/ttools/problem_add" method="post">
+<form class="layui-form" >
     <div class="layui-form-item">
         <label class="layui-form-label">阅读材料</label>
         <div class="layui-input-block">
@@ -80,7 +80,26 @@
 <script>
     layui.use('form', function(){
         var form = layui.form;
-        监听提交
+        form.on('submit(formDemo)',function (data){
+            $.ajax({
+                url:"/ttools/problem_add",
+                type:"post",
+                data:data.field,
+                success:function (msg){
+                    if(msg==='ok'){
+                        layer.alert("添加成功",function (){
+                            xadmin.del_tab();
+                        });
+                    }else{
+                        layer.alert("信息未更新！");
+                    }
+                },
+                error:function (){
+                    layer.alert("未知错误！");
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

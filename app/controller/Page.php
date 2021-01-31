@@ -284,8 +284,8 @@ class Page extends BaseController //页面工具类
         $cno=Db::table('exam')->where('eid',$eid)->value('cno');
         $sid_list=Db::table('student')->where('cno',$cno)->field('sid,sno,name')->select()->toArray();
         foreach ($sid_list as $key=>$value){ //为每个sid添加成绩
-            $grade=Db::table('answer')->where('sid',$value['sid'])->sum('score');
-            $score=Db::table('answrite')->where('sid',$value['sid'])->value('score');
+            $grade=Db::table('answer')->where(['sid'=>$value['sid'],'eid'=>$eid])->sum('score');
+            $score=Db::table('answrite')->where(['sid'=>$value['sid'],'eid'=>$eid])->value('score');
             $sid_list[$key]['grade']=$grade;
             $sid_list[$key]['score']=$score;
         }
