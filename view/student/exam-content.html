@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>试卷</title>
+    <link href="/static/admin/testpaper/main.css" rel="stylesheet" type="text/css" />
+    <link href="/static/admin/testpaper/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/static/admin/testpaper/test.css" rel="stylesheet" type="text/css" />
+    <style>
+        .hasBeenAnswer {
+            background: #5d9cec;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="test_main">
+        <div class="test">
+            <form action="/stools/exam_submit" method="post">
+                <div class="test_title">
+                    <input type="hidden" name="eid" value="{$eid}">
+                    <font><input type="submit"  value="交卷"></font>
+                </div>
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>单选题</h2>
+                        <p>
+                            <span>共</span><i
+                                class="content_lit">{$select.num}</i><span>题，</span><span>合计</span><i
+                                class="content_fs">{$select.total_points}</i><span>分</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul>
+                        <li id="{$listen.pid}">
+                            <div class="test_content_nr_tt">
+                                <i>{$listen.pid}</i>听力<span>({$listen.value}分)</span>
+                                <font>{$listen.content}</font><b class="icon iconfont">&#xe881;</b>
+                                <audio id="audio1" controls="controls">
+                                    <source src="{$url}" type="audio/mpeg">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </div>
+
+                            <div class="test_content_nr_main">
+                                <ul>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$listen.pid}"id="0_answer_{$listen.pid}_option_a" value="a" />
+                                        <label for="0_answer_{$listen.pid}_option_a">A.<p class="ue" style="display: inline;">{$listen.a}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$listen.pid}"id="0_answer_{$listen.pid}_option_b" value="b" />
+                                        <label for="0_answer_{$listen.pid}_option_b">B.<p class="ue" style="display: inline;">{$listen.b}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$listen.pid}"id="0_answer_{$listen.pid}_option_c" value="c" />
+                                        <label for="0_answer_{$listen.pid}_option_c">C.<p class="ue" style="display: inline;">{$listen.c}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$listen.pid}"id="0_answer_{$listen.pid}_option_d" value="d" />
+                                        <label for="0_answer_{$listen.pid}_option_d">D.<p class="ue" style="display: inline;">{$listen.d}</p></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="{$read.pid}">
+                            <div class="test_content_nr_tt">
+                                <i>{$read.pid}</i>阅读<span>({$read.value}分)</span>
+                                <font>{$read.content}</font><b class="icon iconfont">&#xe881;</b>
+                            </div>
+
+                            <div class="test_content_nr_main">
+                                <ul>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$read.pid}" id="0_answer_{$read.pid}_option_a" value="a" />
+                                        <label for="0_answer_{$read.pid}_option_a">A.<p class="ue" style="display: inline;">{$read.a}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$read.pid}" id="0_answer_{$read.pid}_option_b" value="b" />
+                                        <label for="0_answer_{$read.pid}_option_b">B.<p class="ue" style="display: inline;">{$read.b}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$read.pid}" id="0_answer_{$read.pid}_option_c" value="c" />
+                                        <label for="0_answer_{$read.pid}_option_c">C.<p class="ue" style="display: inline;">{$read.c}</p></label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="{$read.pid}" id="0_answer_{$read.pid}_option_d" value="d" />
+                                        <label for="0_answer_{$read.pid}_option_d">D.<p class="ue" style="display: inline;">{$read.d}</p></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="{$write.wid}">
+                            <div class="test_content_nr_tt">
+                                <i>{$write.wid}</i>写作<span>({$write.value}分)</span>
+                                <font>{$write.subject}</font><b class="icon iconfont">&#xe881;</b>
+                            </div>
+                            <div class="test_content_nr_main">
+                                    <textarea name="write" id="0_answer_{$write.wid}_option_a"></textarea>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

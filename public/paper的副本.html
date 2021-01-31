@@ -1,0 +1,158 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>试卷</title>
+	<link href="static/admin/testpaper/main.css" rel="stylesheet" type="text/css" />
+	<link href="static/admin/testpaper/iconfont.css" rel="stylesheet" type="text/css" />
+	<link href="static/admin/testpaper/test.css" rel="stylesheet" type="text/css" />
+	<style>
+		.hasBeenAnswer {
+			background: #5d9cec;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main">
+		<!--nr start-->
+		<div class="test_main">
+			<div class="nr_left">
+				<div class="test">
+					<form action="{:url('paper/insertexam',array('id'=>$select['id']))}" method="post">
+						<input type="hidden" name="id" value="{$select.id}"></input>
+						<div class="test_title">
+							<p class="test_time">
+								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:{$select.time}</b>
+							</p>
+							<font><input type="submit" name="submit" value="交卷"></font>
+						</div>
+
+						<div class="test_content">
+							<div class="test_content_title">
+								<h2>单选题</h2>
+								<p>
+									<span>共</span><i
+										class="content_lit">{$select.num}</i><span>题，</span><span>合计</span><i
+										class="content_fs">{$select.total_points}</i><span>分</span>
+								</p>
+							</div>
+						</div>
+						<div class="test_content_nr">
+							<ul>
+								{assign name="var" value="1" /}
+								{foreach $questions as $value}
+								<li id="{$value.id}">
+									<div class="test_content_nr_tt">
+										<i>{$value.id}</i><span>({$select.score}分)</span>
+										<font>{$value.description}</font><b class="icon iconfont">&#xe881;</b>
+									</div>
+
+									<div class="test_content_nr_main">
+										<ul>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{$value.id}"id="0_answer_{$value.id}_option_1" value="1" />
+												<label for="0_answer_{$value.id}_option_1">A.<p class="ue" style="display: inline;">{$value.selection_a}</p></label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{$value.id}"id="0_answer_{$value.id}_option_2" value="2" />
+												<label for="0_answer_{$value.id}_option_2">B.<p class="ue" style="display: inline;">{$value.selection_b}</p></label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{$value.id}"id="0_answer_{$value.id}_option_3" value="3" />
+												<label for="0_answer_{$value.id}_option_3">C.<p class="ue" style="display: inline;">{$value.selection_c}</p></label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{$value.id}"id="0_answer_{$value.id}_option_4" value="4" />
+												<label for="0_answer_{$value.id}_option_4">D.<p class="ue" style="display: inline;">{$value.selection_d}</p></label>
+											</li>
+										</ul>
+									</div>
+								</li>
+								{/foreach}
+							</ul>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="nr_right">
+				<div class="nr_rt_main">
+					<div class="rt_nr1">
+						<div class="rt_nr1_title">
+							<h1>
+								<i class="icon iconfont">&#xe692;</i>答题卡
+							</h1>
+							<p class="test_time">
+								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:{$select.time}</b>
+							</p>
+						</div>
+						<div class="rt_content">
+							<div class="rt_content_tt">
+								<h2>单选题</h2>
+								<p>
+									<span>共</span><i class="content_lit">{$select.num}</i><span>题</span>
+								</p>
+							</div>
+							<div class="rt_content_nr answerSheet">
+								<ul>
+									{foreach $questions as $value}
+									<li><a href="#{$value.id}">
+											{$value.id}
+										</a>
+									</li>
+									{/foreach}
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--nr end-->
+		<div class="foot"></div>
+	</div>
+
+	<script src="static/admin/testpaper/jquery-1.11.3.min.js"></script>
+	<script src="static/admin/testpaper/jquery.easy-pie-chart.js"></script>
+	<!--时间js-->
+	<script src="static/admin/testpaper/time/jquery.countdown.js"></script>
+	<script>
+		window.jQuery(function ($) {
+			"use strict";
+
+			$('time').countDown({
+				with_separators: false
+			});
+			$('.alt-1').countDown({
+				css_class: 'countdown-alt-1'
+			});
+			$('.alt-2').countDown({
+				css_class: 'countdown-alt-2'
+			});
+
+		});
+
+		$(function () {
+			$('li.option label').click(function () {
+				debugger;
+				var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+				var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+				// 设置已答题
+				if (!cardLi.hasClass('hasBeenAnswer')) {
+					cardLi.addClass('hasBeenAnswer');
+				}
+
+			});
+		});
+	</script>
+</body>
+</html>

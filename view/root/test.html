@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>账号</th>
+            <th>职工号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>生日</th>
+            <th>院系</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name='list' id='vo'}
+        <tr>
+            <td>{$vo.tid}</td>
+            <td>{$vo.tno}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.gender}</td>
+            <td>{$vo.birthday}</td>
+            <td>{$vo.dept}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+<div>
+    {$list|raw}
+</div>
+</body>
+</html>
